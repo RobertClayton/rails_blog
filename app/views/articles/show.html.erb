@@ -1,12 +1,42 @@
-<h2>Title:</h2>
 <p>
+  <strong>Title:</strong><br>
   <%= @article.title %>
 </p>
-<br>
-<h3>Text:</h3>
+
 <p>
+  <strong>Text:</strong><br>
   <%= @article.text %>
 </p>
+
+
+
+<h3>Comments:</h3>
+<% @article.comments.each do |comment| %>
+  <p>
+    <strong>commenter:</strong><br>
+    <%= comment.commenter %>
+  </p>
+
+  <p>
+    <strong>body:</strong><br>
+    <%= comment.body %>
+  </p>
+<% end %>
+
+
+<%= form_with(model: [ @article, @article.comments.build], local: true) do |form| %>
+  <p>
+    <%= form.label :commenter %><br>
+    <%= form.text_area :commenter %>
+  </p>
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
 
 <%= link_to 'Back', articles_path %>
 <%= link_to 'Edit', edit_article_path(@article) %>
